@@ -106,6 +106,12 @@ Create volume mounts for SearXNG
   mountPath: /etc/searxng/settings.yml
   subPath: settings.yml
   readOnly: true
+- name: tmp
+  mountPath: /tmp
+- name: var-tmp
+  mountPath: /var/tmp
+- name: cache
+  mountPath: /var/cache/searxng
 {{- if .Values.extraVolumeMounts }}
 {{- toYaml .Values.extraVolumeMounts }}
 {{- end }}
@@ -121,6 +127,13 @@ Create volumes for SearXNG
     items:
     - key: settings.yml
       path: settings.yml
+    defaultMode: 0644
+- name: tmp
+  emptyDir: {}
+- name: var-tmp
+  emptyDir: {}
+- name: cache
+  emptyDir: {}
 {{- if .Values.extraVolumes }}
 {{- toYaml .Values.extraVolumes }}
 {{- end }}

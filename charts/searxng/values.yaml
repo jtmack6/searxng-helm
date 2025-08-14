@@ -49,6 +49,14 @@ securityContext:
   runAsUser: 977
   runAsGroup: 977
 
+# -- Init container to fix permissions
+initContainer:
+  enabled: true
+  image:
+    repository: busybox
+    tag: "1.36"
+    pullPolicy: IfNotPresent
+
 service:
   # -- Service type
   type: ClusterIP
