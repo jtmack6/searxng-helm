@@ -315,7 +315,7 @@ redis:
   # -- Enable Redis deployment
   enabled: false
   
-  # Redis architecture - standalone only (no replicas)
+  # Force standalone architecture (critical!)
   architecture: standalone
   
   # Authentication
@@ -334,29 +334,41 @@ redis:
       requests:
         cpu: 100m
         memory: 128Mi
+    # Force single master instance
+    count: 1
   
-  # Disable replica entirely
+  # CRITICAL: Explicitly disable replicas
   replica:
     replicaCount: 0
+    persistence:
+      enabled: false
   
-  # Metrics
+  # Disable all Redis features we don't need
   metrics:
     enabled: false
-  
-  # Network policy
+  sentinel:
+    enabled: false
   networkPolicy:
     enabled: false
+  podSecurityPolicy:
+    enabled: false
+  rbac:
+    create: false
+  serviceAccount:
+    create: false
+  
+  # Explicit global overrides to prevent replica creation
+  global:
+    redis:
+      password: ""
   
   # Common configuration
   commonConfiguration: |-
-    # Enable AOF https://redis.io/topics/persistence#append-only-file
-    appendonly yes
-    # Disable RDB persistence, AOF persistence already enabled.
+    # Standalone Redis configuration
+    appendonly no
     save ""
-  
-  # Disable sentinel
-  sentinel:
-    enabled: false
+    maxmemory 128mb
+    maxmemory-policy allkeys-lru
 
 # NetworkPolicy
 networkPolicy:
