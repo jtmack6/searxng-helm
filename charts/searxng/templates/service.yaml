@@ -8,7 +8,7 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
+    - port: {{ default .Values.service.port .Values.service.main.ports.http.port }}
       targetPort: {{ .Values.service.targetPort }}
       protocol: TCP
       name: http

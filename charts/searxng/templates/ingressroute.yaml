@@ -1,0 +1,22 @@
+{{- if .Values.ingressRoute.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ default (include "searxng.fullname" .) .Values.ingressRoute.name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "searxng.labels" . | nindent 4 }}
+spec:
+  entryPoints:
+    {{- toYaml .Values.ingressRoute.entryPoints | nindent 4 }}
+  routes:
+    - match: Host(`{{ .Values.ingressRoute.host }}`)
+      kind: Rule
+      services:
+        - name: {{ default (include "searxng.fullname" .) .Values.ingressRoute.service.name }}
+          port: {{ .Values.ingressRoute.service.port }}
+  {{- if .Values.ingressRoute.tls.certResolver }}
+  tls:
+    certResolver: {{ .Values.ingressRoute.tls.certResolver }}
+  {{- end }}
+{{- end }}

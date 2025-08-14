@@ -56,6 +56,12 @@ service:
   port: 8080
   # -- Target port on the pod
   targetPort: 8080
+  # -- Alternative service configuration (k8s-at-home style)
+  main:
+    enabled: true
+    ports:
+      http:
+        port: 8080
 
 ingress:
   # -- Enable ingress
@@ -77,6 +83,27 @@ ingress:
   #  - secretName: searxng-tls
   #    hosts:
   #      - searxng.local
+  # -- Alternative ingress configuration (k8s-at-home style)
+  main:
+    enabled: false
+
+# IngressRoute configuration for Traefik
+ingressRoute:
+  # -- Enable IngressRoute
+  enabled: false
+  # -- IngressRoute name
+  name: ""
+  # -- Host for the IngressRoute
+  host: ""
+  # -- Entry points
+  entryPoints: []
+  # -- Service configuration
+  service:
+    name: ""
+    port: 8080
+  # -- TLS configuration
+  tls:
+    certResolver: ""
 
 # -- Resource limits and requests
 resources:
@@ -233,6 +260,26 @@ searxng:
     # redis:
     #   url: redis://searxng-redis:6379/0
 
+# Alternative config structure (for compatibility)
+config:
+  # Use default settings
+  use_default_settings: true
+  
+  # Server settings
+  server:
+    secret_key: "changeme-secret-key"
+    bind_address: "0.0.0.0:8080"
+    base_url: false
+    public_instance: false
+  
+  # UI settings
+  ui:
+    static_use_hash: false
+  
+  # Redis settings
+  redis:
+    url: "redis://searxng-redis-master:6379/0"
+
 # Persistence
 persistence:
   # -- Enable persistence
@@ -246,6 +293,14 @@ persistence:
   size: 1Gi
   # -- Annotations for the PVC
   annotations: {}
+  # -- Alternative config persistence (k8s-at-home style)
+  config:
+    enabled: false
+    type: configMap
+    name: ""
+    mountPath: /etc/searxng
+    subPath: settings.yml
+    defaultMode: 420
 
 # Redis dependency configuration
 redis:

@@ -7,6 +7,10 @@ metadata:
     {{- include "searxng.labels" . | nindent 4 }}
 data:
   settings.yml: |
-{{- with .Values.searxng.config }}
+{{- if .Values.config }}
+    {{- toYaml .Values.config | nindent 4 }}
+{{- else }}
+    {{- with .Values.searxng.config }}
     {{- toYaml . | nindent 4 }}
+    {{- end }}
 {{- end }}
