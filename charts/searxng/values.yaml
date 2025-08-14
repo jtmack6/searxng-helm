@@ -315,7 +315,7 @@ redis:
   # -- Enable Redis deployment
   enabled: false
   
-  # Redis architecture
+  # Redis architecture - standalone only (no replicas)
   architecture: standalone
   
   # Authentication
@@ -335,8 +335,27 @@ redis:
         cpu: 100m
         memory: 128Mi
   
+  # Disable replica entirely
+  replica:
+    replicaCount: 0
+  
   # Metrics
   metrics:
+    enabled: false
+  
+  # Network policy
+  networkPolicy:
+    enabled: false
+  
+  # Common configuration
+  commonConfiguration: |-
+    # Enable AOF https://redis.io/topics/persistence#append-only-file
+    appendonly yes
+    # Disable RDB persistence, AOF persistence already enabled.
+    save ""
+  
+  # Disable sentinel
+  sentinel:
     enabled: false
 
 # NetworkPolicy
