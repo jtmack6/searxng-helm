@@ -1,0 +1,317 @@
+# Default values for searxng.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# -- Number of replicas
+replicaCount: 1
+
+image:
+  # -- SearXNG image repository
+  repository: searxng/searxng
+  # -- Image pull policy
+  pullPolicy: IfNotPresent
+  # -- Overrides the image tag whose default is the chart appVersion
+  tag: ""
+
+# -- Image pull secrets
+imagePullSecrets: []
+
+# -- Override the name of the chart
+nameOverride: ""
+
+# -- Override the full name of the release
+fullnameOverride: ""
+
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: true
+  # -- Annotations to add to the service account
+  annotations: {}
+  # -- The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+# -- Pod annotations
+podAnnotations: {}
+
+# -- Pod security context
+podSecurityContext:
+  fsGroup: 977
+
+# -- Security context for the container
+securityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+    - ALL
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 977
+  runAsGroup: 977
+
+service:
+  # -- Service type
+  type: ClusterIP
+  # -- Service port
+  port: 8080
+  # -- Target port on the pod
+  targetPort: 8080
+
+ingress:
+  # -- Enable ingress
+  enabled: false
+  # -- Ingress class name
+  className: ""
+  # -- Ingress annotations
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  # -- Ingress hosts configuration
+  hosts:
+    - host: searxng.local
+      paths:
+        - path: /
+          pathType: Prefix
+  # -- Ingress TLS configuration
+  tls: []
+  #  - secretName: searxng-tls
+  #    hosts:
+  #      - searxng.local
+
+# -- Resource limits and requests
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 256Mi
+
+autoscaling:
+  # -- Enable horizontal pod autoscaler
+  enabled: false
+  # -- Minimum number of replicas
+  minReplicas: 1
+  # -- Maximum number of replicas
+  maxReplicas: 10
+  # -- Target CPU utilization percentage
+  targetCPUUtilizationPercentage: 80
+  # -- Target memory utilization percentage
+  # targetMemoryUtilizationPercentage: 80
+
+# -- Node selector for pod assignment
+nodeSelector: {}
+
+# -- Tolerations for pod assignment
+tolerations: []
+
+# -- Affinity for pod assignment
+affinity: {}
+
+# -- Topology spread constraints
+topologySpreadConstraints: []
+
+# -- Pod disruption budget
+podDisruptionBudget:
+  enabled: false
+  # minAvailable: 1
+  # maxUnavailable: 1
+
+# Probes configuration
+probes:
+  liveness:
+    # -- Enable liveness probe
+    enabled: true
+    # -- Initial delay seconds
+    initialDelaySeconds: 30
+    # -- Period seconds
+    periodSeconds: 10
+    # -- Timeout seconds
+    timeoutSeconds: 5
+    # -- Failure threshold
+    failureThreshold: 3
+    # -- Success threshold
+    successThreshold: 1
+  readiness:
+    # -- Enable readiness probe
+    enabled: true
+    # -- Initial delay seconds
+    initialDelaySeconds: 10
+    # -- Period seconds
+    periodSeconds: 5
+    # -- Timeout seconds
+    timeoutSeconds: 3
+    # -- Failure threshold
+    failureThreshold: 3
+    # -- Success threshold
+    successThreshold: 1
+  startup:
+    # -- Enable startup probe
+    enabled: true
+    # -- Initial delay seconds
+    initialDelaySeconds: 10
+    # -- Period seconds
+    periodSeconds: 10
+    # -- Timeout seconds
+    timeoutSeconds: 5
+    # -- Failure threshold
+    failureThreshold: 30
+    # -- Success threshold
+    successThreshold: 1
+
+# Environment variables
+env:
+  # -- Instance name displayed in the interface
+  INSTANCE_NAME: "SearXNG"
+  # -- Base URL for the instance
+  BASE_URL: "http://localhost:8080/"
+  # -- Enable autocomplete
+  AUTOCOMPLETE: "false"
+  # -- Bind address (default: 0.0.0.0:8080)
+  # BIND_ADDRESS: "0.0.0.0:8080"
+  # -- Morty URL for proxying results
+  # MORTY_URL: "http://morty:3000"
+  # -- Morty key for authentication
+  # MORTY_KEY: "changeme"
+
+# SearXNG configuration
+searxng:
+  # -- SearXNG configuration as YAML
+  config:
+    # Use default settings
+    use_default_settings: true
+    
+    # General settings
+    general:
+      instance_name: "SearXNG"
+      privacypolicy_url: false
+      donation_url: false
+      contact_url: false
+      enable_metrics: false
+    
+    # Search settings
+    search:
+      safe_search: 0
+      autocomplete: ""
+      default_lang: ""
+      ban_time_on_fail: 5
+      max_ban_time_on_fail: 120
+      formats:
+        - html
+        - json
+    
+    # Server settings
+    server:
+      port: 8080
+      bind_address: "0.0.0.0"
+      secret_key: "changeme-secret-key"
+      base_url: false
+      image_proxy: false
+      http_protocol_version: "1.0"
+      method: "POST"
+      default_http_headers:
+        X-Content-Type-Options: nosniff
+        X-XSS-Protection: "1; mode=block"
+        X-Download-Options: noopen
+        X-Robots-Tag: noindex, nofollow
+        Referrer-Policy: no-referrer
+    
+    # UI settings
+    ui:
+      static_use_hash: false
+      default_theme: simple
+      default_locale: ""
+      theme_args:
+        simple_style: auto
+      results_on_new_tab: false
+      advanced_search: false
+      search_on_category_select: true
+      hotkeys: default
+    
+    # Rate limiting (requires Redis)
+    # limiter: false
+    # redis:
+    #   url: redis://searxng-redis:6379/0
+
+# Persistence
+persistence:
+  # -- Enable persistence
+  enabled: false
+  # -- Storage class
+  storageClass: ""
+  # -- Access modes
+  accessModes:
+    - ReadWriteOnce
+  # -- Storage size
+  size: 1Gi
+  # -- Annotations for the PVC
+  annotations: {}
+
+# Redis dependency configuration
+redis:
+  # -- Enable Redis deployment
+  enabled: false
+  
+  # Redis architecture
+  architecture: standalone
+  
+  # Authentication
+  auth:
+    enabled: false
+    # password: "changeme"
+  
+  # Master configuration
+  master:
+    persistence:
+      enabled: false
+    resources:
+      limits:
+        cpu: 250m
+        memory: 256Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+  
+  # Metrics
+  metrics:
+    enabled: false
+
+# NetworkPolicy
+networkPolicy:
+  # -- Enable network policy
+  enabled: false
+  # -- Ingress rules
+  ingress: []
+  # -- Egress rules
+  egress: []
+
+# ServiceMonitor for Prometheus
+serviceMonitor:
+  # -- Enable ServiceMonitor
+  enabled: false
+  # -- ServiceMonitor namespace
+  namespace: ""
+  # -- ServiceMonitor annotations
+  annotations: {}
+  # -- ServiceMonitor labels
+  labels: {}
+  # -- Scrape interval
+  interval: 30s
+  # -- Scrape timeout
+  scrapeTimeout: 10s
+  # -- Metrics path
+  path: /stats/errors
+  # -- Target labels
+  targetLabels: []
+
+# Extra volumes
+extraVolumes: []
+
+# Extra volume mounts
+extraVolumeMounts: []
+
+# Extra containers
+extraContainers: []
+
+# Extra init containers
+extraInitContainers: []

@@ -1,0 +1,36 @@
+apiVersion: v2
+name: searxng
+description: A privacy-respecting, hackable metasearch engine
+type: application
+version: 0.2.0
+appVersion: "2025.8.12+6b1516d6a"
+kubeVersion: ">=1.19.0-0"
+
+home: https://github.com/searxng/searxng
+sources:
+  - https://github.com/searxng/searxng
+  - https://docs.searxng.org
+  - https://hub.docker.com/r/searxng/searxng
+
+keywords:
+  - searx
+  - searxng
+  - search engine
+  - privacy
+  - metasearch
+
+icon: https://github.com/searxng/searxng/blob/master/searx/static/themes/simple/img/favicon.png?raw=true
+
+maintainers:
+  - name: Jim Mack
+    email: jim@mack.sh
+
+dependencies:
+  - name: redis
+    version: 22.0.1
+    repository: oci://registry-1.docker.io/bitnamicharts
+    condition: redis.enabled
+
+annotations:
+  category: Analytics
+  licenses: Apache-2.0
