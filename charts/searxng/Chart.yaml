@@ -2,7 +2,7 @@ apiVersion: v2
 name: searxng
 description: A privacy-respecting, hackable metasearch engine
 type: application
-version: 0.2.1
+version: 0.2.2
 appVersion: "2025.8.12+6b1516d6a"
 kubeVersion: ">=1.19.0-0"
 
