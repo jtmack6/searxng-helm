@@ -1,6 +1,6 @@
 # SearXNG Helm Charts
 
-[![Release Charts](https://github.com/searxng/searxng-helm-chart/actions/workflows/release.yml/badge.svg)](https://github.com/searxng/searxng-helm-chart/actions/workflows/release.yml)
+[![Release Charts](https://github.com/jtmack6/searxng-helm/actions/workflows/release.yml/badge.svg)](https://github.com/jtmack6/searxng-helm/actions/workflows/release.yml)
 
 This repository contains Helm charts for deploying [SearXNG](https://github.com/searxng/searxng), a privacy-respecting, hackable metasearch engine.
 
@@ -11,7 +11,7 @@ This repository contains Helm charts for deploying [SearXNG](https://github.com/
 Once Helm has been set up correctly, add the repo as follows:
 
 ```bash
-helm repo add searxng https://searxng.github.io/searxng-helm-chart
+helm repo add searxng https://jtmack6.github.io/searxng-helm
 helm repo update
 ```
 
@@ -268,7 +268,7 @@ helm package charts/searxng/
 
 ## Contributing
 
-Contributions are welcome! Please read the contributing guidelines and submit pull requests to the [GitHub repository](https://github.com/searxng/searxng-helm-chart).
+Contributions are welcome! Please read the contributing guidelines and submit pull requests to the [GitHub repository](https://github.com/jtmack6/searxng-helm).
 
 ## License
 
@@ -278,4 +278,4 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 - [SearXNG Documentation](https://docs.searxng.org/)
 - [SearXNG GitHub Repository](https://github.com/searxng/searxng)
-- [Helm Chart Issues](https://github.com/searxng/searxng-helm-chart/issues)
+- [Helm Chart Issues](https://github.com/jtmack6/searxng-helm/issues)
