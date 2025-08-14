@@ -1,10 +1,6 @@
 # Chart Releaser Configuration
 # Documentation: https://github.com/helm/chart-releaser
 
-# Owner and repository name
-owner: searxng
-repo: searxng-helm-chart
-
 # Release configuration
 release-name-template: "{{ .Name }}-{{ .Version }}"
 
@@ -18,6 +14,8 @@ package-dir: .cr-release-packages
 # Pages configuration
 pages-branch: gh-pages
 pages-index-path: index.yaml
+packages-with-index: true
+push: true
 
 # Skip existing releases
 skip-existing: true
