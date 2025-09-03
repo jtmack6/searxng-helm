@@ -263,6 +263,39 @@ searxng:
       search_on_category_select: true
       hotkeys: default
     
+    # Outgoing request configuration for timeout fixes
+    outgoing:
+      # Default timeout for search requests (increase from 3.0s)
+      request_timeout: 8.0
+      # Maximum timeout for any single request
+      max_request_timeout: 12.0
+      # HTTP connection pool settings
+      pool_connections: 100
+      pool_maxsize: 20
+      # Enable HTTP/2 for better performance
+      enable_http2: true
+      # User agent for requests
+      useragent_suffix: ""
+      # Verify SSL certificates
+      verify: true
+    
+    # Search engine configurations
+    engines:
+      # Common search engines with optimized timeouts
+      - name: google
+        timeout: 8.0
+        # Additional engine settings can be added here
+      - name: duckduckgo
+        timeout: 8.0
+      - name: startpage
+        timeout: 10.0
+      - name: brave
+        timeout: 8.0
+      - name: bing
+        timeout: 8.0
+      - name: yahoo
+        timeout: 8.0
+    
     # Rate limiting (requires Redis)
     # limiter: false
     # redis:
@@ -283,6 +316,31 @@ config:
   # UI settings
   ui:
     static_use_hash: false
+  
+  # Outgoing request configuration for timeout fixes
+  outgoing:
+    # Default timeout for search requests (increase from 3.0s)
+    request_timeout: 8.0
+    # Maximum timeout for any single request
+    max_request_timeout: 12.0
+    # HTTP connection pool settings
+    pool_connections: 100
+    pool_maxsize: 20
+    # Enable HTTP/2 for better performance
+    enable_http2: true
+  
+  # Search engine configurations with optimized timeouts
+  engines:
+    - name: google
+      timeout: 8.0
+    - name: duckduckgo
+      timeout: 8.0
+    - name: startpage
+      timeout: 10.0
+    - name: brave
+      timeout: 8.0
+    - name: bing
+      timeout: 8.0
   
   # Redis settings
   redis:
