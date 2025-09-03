@@ -6,6 +6,40 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 2025.8.12+6b1516d6a
+    created: "2025-09-03T21:16:22.673779943Z"
+    dependencies:
+    - condition: redis.enabled
+      name: redis
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 22.0.1
+    description: A privacy-respecting, hackable metasearch engine
+    digest: b84947da78123343c0ce3fcddcf3e27033114d5ff5e02afe7a1d4d4ce77c0148
+    home: https://github.com/searxng/searxng
+    icon: https://github.com/searxng/searxng/blob/master/searx/static/themes/simple/img/favicon.png?raw=true
+    keywords:
+    - searx
+    - searxng
+    - search engine
+    - privacy
+    - metasearch
+    kubeVersion: '>=1.19.0-0'
+    maintainers:
+    - email: jim@mack.sh
+      name: Jim Mack
+    name: searxng
+    sources:
+    - https://github.com/searxng/searxng
+    - https://docs.searxng.org
+    - https://hub.docker.com/r/searxng/searxng
+    type: application
+    urls:
+    - searxng-0.2.9.tgz
+    version: 0.2.9
+  - annotations:
+      category: Analytics
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: 2025.8.12+6b1516d6a
     created: "2025-08-14T06:42:12.590494256Z"
     dependencies:
     - condition: redis.enabled
@@ -273,4 +307,4 @@ entries:
     urls:
     - searxng-0.2.1.tgz
     version: 0.2.1
-generated: "2025-08-14T06:42:12.590530023Z"
+generated: "2025-09-03T21:16:22.673808345Z"
