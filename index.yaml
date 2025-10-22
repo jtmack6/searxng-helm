@@ -6,6 +6,35 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 2025.8.12+6b1516d6a
+    created: "2025-10-22T15:45:52.183311538Z"
+    description: A privacy-respecting, hackable metasearch engine
+    digest: 1dba0673228f9059c6476673fa101d38775096cb4caf16b6f899c11ecea35944
+    home: https://github.com/searxng/searxng
+    icon: https://github.com/searxng/searxng/blob/master/searx/static/themes/simple/img/favicon.png?raw=true
+    keywords:
+    - searx
+    - searxng
+    - search engine
+    - privacy
+    - metasearch
+    kubeVersion: '>=1.19.0-0'
+    maintainers:
+    - email: jim@mack.sh
+      name: Jim Mack
+    name: searxng
+    sources:
+    - https://github.com/searxng/searxng
+    - https://docs.searxng.org
+    - https://hub.docker.com/r/searxng/searxng
+    type: application
+    urls:
+    - searxng-0.3.1.tgz
+    version: 0.3.1
+  - annotations:
+      category: Analytics
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: 2025.8.12+6b1516d6a
     created: "2025-10-22T15:33:13.432282595Z"
     description: A privacy-respecting, hackable metasearch engine
     digest: 8dd68171843e6375d1caaf07182a00b750fa6f241da835443e1e5eff53871437
@@ -336,4 +365,4 @@ entries:
     urls:
     - searxng-0.2.1.tgz
     version: 0.2.1
-generated: "2025-10-22T15:33:13.432325726Z"
+generated: "2025-10-22T15:45:52.183357353Z"
