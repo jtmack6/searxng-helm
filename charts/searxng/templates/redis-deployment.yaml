@@ -28,13 +28,16 @@ spec:
         - name: redis
           containerPort: 6379
           protocol: TCP
-        {{- if .Values.redis.auth.enabled }}
         env:
+        {{- if .Values.redis.auth.enabled }}
         - name: REDIS_PASSWORD
           valueFrom:
             secretKeyRef:
               name: {{ include "searxng.fullname" . }}-redis
               key: redis-password
+        {{- else }}
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"
         {{- end }}
         {{- if .Values.redis.resources }}
         resources:
