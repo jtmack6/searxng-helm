@@ -25,12 +25,6 @@ maintainers:
   - name: Jim Mack
     email: jim@mack.sh
 
-dependencies:
-  - name: redis
-    version: latest 
-    repository: bitnamilegacy/redis 
-    condition: redis.enabled
-
 annotations:
   category: Analytics
   licenses: Apache-2.0

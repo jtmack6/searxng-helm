@@ -368,65 +368,36 @@ persistence:
     subPath: settings.yml
     defaultMode: 420
 
-# Redis dependency configuration
+# Redis configuration
 redis:
   # -- Enable Redis deployment
   enabled: false
-  
-  # Force standalone architecture (critical!)
-  architecture: standalone
-  
-  # Authentication
+
+  # -- Redis image configuration
+  image:
+    repository: bitnamilegacy/redis
+    tag: 8.2.1-debian-12-r0
+    pullPolicy: IfNotPresent
+
+  # -- Authentication
   auth:
     enabled: false
     # password: "changeme"
-  
-  # Master configuration
-  master:
-    persistence:
-      enabled: false
-    resources:
-      limits:
-        cpu: 250m
-        memory: 256Mi
-      requests:
-        cpu: 100m
-        memory: 128Mi
-    # Force single master instance
-    count: 1
-  
-  # CRITICAL: Explicitly disable replicas
-  replica:
-    replicaCount: 0
-    persistence:
-      enabled: false
-  
-  # Disable all Redis features we don't need
-  metrics:
+
+  # -- Persistence configuration
+  persistence:
     enabled: false
-  sentinel:
-    enabled: false
-  networkPolicy:
-    enabled: false
-  podSecurityPolicy:
-    enabled: false
-  rbac:
-    create: false
-  serviceAccount:
-    create: false
-  
-  # Explicit global overrides to prevent replica creation
-  global:
-    redis:
-      password: ""
-  
-  # Common configuration
-  commonConfiguration: |-
-    # Standalone Redis configuration
-    appendonly no
-    save ""
-    maxmemory 128mb
-    maxmemory-policy allkeys-lru
+    # storageClass: ""
+    # size: 1Gi
+
+  # -- Resource limits and requests
+  resources:
+    limits:
+      cpu: 250m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
 
 # NetworkPolicy
 networkPolicy:
